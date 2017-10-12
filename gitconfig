@@ -10,11 +10,15 @@
   path = ~/.gitconfig_local
 [alias]
   co = checkout
-  st = status
+  cm = commit
+  s = status
   br = branch
   w = whatchanged
-  amend = commit --amend
-  unstage = reset HEAD --
+  col = "!select choice in $(git branch | grep -v '*'); do echo checking out $choice; git checkout $choice; break; done"
+  u = "!git add -u && git status"
+  ua = "!git add --all && git status"
+  sls = "!git stash list | cat"
+  aliases = "!git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort"
 [apply]
   whitespace = nowarn
 [color]
@@ -28,18 +32,14 @@
   summary = true
 [push]
   default = upstream
-[diff]
-  ignoresubmodules = untracked
-  compactionHeuristic = true
-[core]
-  excludesfile = ~/.gitignore
-[heroku]
-  account = personal
 [pull]
   rebase = true
-[fetch]
-  prune = true
-[submodule]
-	fetchJobs = 4
-[gpg]
-	program = gpg1
+[remote "origin"]
+  push = HEAD
+[core]
+  excludesfile = ~/.gitignore
+[advice]
+  detachedHead = false
+
+[hub]
+  protocol = https
